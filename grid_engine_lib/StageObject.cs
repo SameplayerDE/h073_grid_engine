@@ -1,21 +1,16 @@
 ﻿using System;
-using grid_engine.EngineEventArgs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace grid_engine
+namespace grid_engine_lib
 {
-    public abstract class StageObject
+     public abstract class StageObject
     {
         private Vector2 _position;
         private Stage _stage;
         private bool _isVisible = true;
         private bool _isActive = true;
 
-        public EventHandler<BoolEventArgs> VisibilityChanged;
-        public EventHandler<BoolEventArgs> ActiveChanged;
-        public EventHandler<StageChangedEventArgs> StageChanged;
-        
         public bool IsVisible
         {
             get => _isVisible;
@@ -23,7 +18,6 @@ namespace grid_engine
             {
                 if (_isVisible.Equals(value)) return;
                 _isVisible = value;
-                OnVisibilityChangedEvent();
             }
         }
 
@@ -34,7 +28,6 @@ namespace grid_engine
             {
                 if (_isActive.Equals(value)) return;
                 _isActive = value;
-                OnActiveChangedEvent();
             }
         }
 
@@ -53,24 +46,23 @@ namespace grid_engine
         public Stage Stage
         {
             get => _stage;
-            set
-            {
-                _stage?.RequestRemove(this);
-                _stage = value;
-            }
+            set => _stage = value;
         }
 
-        protected StageObject(int x = 0, int y = 0)
+        protected StageObject(int x = 0, int y = 0,  bool isActive = true, bool isVisible = true)
         {
             _position.X = x;
             _position.Y = y;
+            _isActive = isActive;
+            _isVisible = isVisible;
+            _stage = null;
         }
         
-        protected StageObject(Vector2 position) : this(position.ToPoint())
+        protected StageObject(Vector2 position, bool isActive = true, bool isVisible = true) : this(position.ToPoint(), isActive, isVisible)
         {
         }
         
-        protected StageObject(Point position) : this(position.X, position.Y)
+        protected StageObject(Point position, bool isActive = true, bool isVisible = true) : this(position.X, position.Y, isActive, isVisible)
         {
         }
 
@@ -96,35 +88,6 @@ namespace grid_engine
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (!IsVisible) return;
-        }
-
-        private void SetStage(Stage stage)
-        {
-            
-        }
-
-        private void OnVisibilityChangedEvent()
-        {
-            var eventArgs = new BoolEventArgs(_isVisible);
-            VisibilityChanged?.Invoke(this, eventArgs);
-        }
-        
-        
-        private void OnActiveChangedEvent()
-        {
-            var eventArgs = new BoolEventArgs(_isActive);
-            ActiveChanged?.Invoke(this, eventArgs);
-        }
-        
-        private void OnPositionChangedEvent()
-        {
-            var eventArgs = new BoolEventArgs(_isActive);
-            ActiveChanged?.Invoke(this, eventArgs);
-        }
-        
-        private void OnStageChangedEvent(StageChangedEventArgs eventArgs)
-        {
-            StageChanged?.Invoke(this, eventArgs);
         }
     }
 }
