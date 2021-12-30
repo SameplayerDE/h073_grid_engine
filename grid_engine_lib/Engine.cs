@@ -13,9 +13,12 @@ namespace grid_engine_lib
         {
             // ReSharper disable once HeapView.ObjectAllocation.Evident
             _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            IsMouseVisible = true;
-            Window.AllowUserResizing = true;
+        }
+
+        protected override void LoadContent()
+        {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            base.LoadContent();
         }
     }
 }

@@ -6,56 +6,18 @@ namespace grid_engine_lib
 {
      public abstract class StageObject
     {
-        private Vector2 _position;
-        private Stage _stage;
-        private bool _isVisible = true;
-        private bool _isActive = true;
-
-        public bool IsVisible
-        {
-            get => _isVisible;
-            set
-            {
-                if (_isVisible.Equals(value)) return;
-                _isVisible = value;
-            }
-        }
-
-        public bool IsActive
-        {
-            get => _isActive;
-            set
-            {
-                if (_isActive.Equals(value)) return;
-                _isActive = value;
-            }
-        }
-
-        public Vector2 Position
-        {
-            get => _position;
-            protected set
-            {
-                if (!_position.Equals(value))
-                {
-                    _position = value;
-                }
-            }
-        }
+        public Vector2 Position;
+        public Stage Stage;
+        public bool IsVisible = true;
+        public bool IsActive = true;
         
-        public Stage Stage
-        {
-            get => _stage;
-            set => _stage = value;
-        }
-
         protected StageObject(int x = 0, int y = 0,  bool isActive = true, bool isVisible = true)
         {
-            _position.X = x;
-            _position.Y = y;
-            _isActive = isActive;
-            _isVisible = isVisible;
-            _stage = null;
+            Position.X = x;
+            Position.Y = y;
+            IsActive = isActive;
+            IsVisible = isVisible;
+            Stage = null;
         }
         
         protected StageObject(Vector2 position, bool isActive = true, bool isVisible = true) : this(position.ToPoint(), isActive, isVisible)
@@ -68,15 +30,15 @@ namespace grid_engine_lib
 
         public (bool, StageObject) Move(int x, int y)
         {
-            _position.X += x;
-            _position.Y += y;
+            Position.X += x;
+            Position.Y += y;
             return (true, null);
         }
         
         public (bool, StageObject) Teleport(int x, int y)
         {
-            _position.X = x;
-            _position.Y = y;
+            Position.X = x;
+            Position.Y = y;
             return (true, null);
         }
         
