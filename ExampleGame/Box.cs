@@ -11,7 +11,7 @@ namespace ExampleGame
         
         public Box(Vector2 position) : base(position)
         {
-            
+
         }
         
         public Box(Point position) : base(position)

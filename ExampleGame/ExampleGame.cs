@@ -15,8 +15,13 @@ namespace ExampleGame
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             Window.AllowUserResizing = true;
+        }
+
+        protected override void Initialize()
+        {
             _stage = new Stage();
-            _stage.StageObjects.Add(new Box());
+            _stage.Add(new Box());
+            base.Initialize();
         }
 
         protected override void LoadContent()

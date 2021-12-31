@@ -1,6 +1,8 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX;
+using Point = Microsoft.Xna.Framework.Point;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace grid_engine_lib
 {
@@ -30,6 +32,8 @@ namespace grid_engine_lib
 
         public (bool, StageObject) Move(int x, int y)
         {
+            var (success, result) = Stage.Get(Position.X + x, Position.Y + y);
+            if (success) return (false, result);
             Position.X += x;
             Position.Y += y;
             return (true, null);
@@ -37,6 +41,8 @@ namespace grid_engine_lib
         
         public (bool, StageObject) Teleport(int x, int y)
         {
+            var (success, result) = Stage.Get(x, y);
+            if (success) return (false, result);
             Position.X = x;
             Position.Y = y;
             return (true, null);
