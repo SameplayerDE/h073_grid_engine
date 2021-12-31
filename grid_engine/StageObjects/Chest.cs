@@ -19,7 +19,7 @@ namespace grid_engine.StageObjects
             
         }
 
-        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        /*public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             base.Draw(spriteBatch, gameTime);
             var destination = new Rectangle(new Point((int)(Position.X * Stage.CellWidth), (int)(Position.Y * Stage.CellHeight)), new Point(Stage.CellWidth, Stage.CellHeight));
@@ -29,6 +29,6 @@ namespace grid_engine.StageObjects
             var origin = new Vector2(Stage.SpriteWidth, Stage.SpriteHeight) / 2;
             origin = Vector2.Zero;
             spriteBatch.Draw(Engine.x32Miss, destination, null, color, rotation, origin, spriteEffect, 0f);
-        }
+        }*/
     }
 }

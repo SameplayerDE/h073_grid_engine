@@ -1,100 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
-using grid_engine.Requests;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using SharpDX.DirectWrite;
 
 namespace grid_engine
 {
     public class Stage
     {
-        private List<StageObject> _stageObjects;
-        private static Stack<StageRequest> _stageRequests;
-        
-        public static int SpriteWidth = 32;
-        public static int SpriteHeight = 32;
-        
-        public static int CellWidth = 32;
-        public static int CellHeight = 32;
+        public List<StageObject> StageObjects;
 
         public Stage()
         {
-            _stageObjects = new List<StageObject>();
-            _stageRequests = new Stack<StageRequest>();
+            StageObjects = new List<StageObject>();
         }
 
-        public void RequestAdd(StageObject stageObject)
+        ~Stage()
         {
-            _stageRequests.Push(new StageObjectRequest(this, stageObject, StageObjectRequestType.Add));
+            StageObjects.Clear();
         }
-        
-        public void RequestRemove(StageObject stageObject)
+
+        public void Add(StageObject stageObject)
         {
-            _stageRequests.Push(new StageObjectRequest(this, stageObject, StageObjectRequestType.Remove));
+            stageObject.Stage = this;
+            StageObjects.Add(stageObject);
+        }
+
+        public (bool, StageObject) Get(int x, int y)
+        {
+            foreach (var o in StageObjects)
+            {
+                if (o.Position == new Vector2(x, y))
+                {
+                    return (true, o);
+                }
+            }
+            return (false, null);
         }
         
         public void Update(GameTime gameTime)
         {
-            UpdateStageObjects(gameTime);
-            ProcessRequests();
+            
         }
 
-        private void UpdateStageObjects(GameTime gameTime)
+        public (bool, StageObject) Get(float x, float y)
         {
-            foreach (var stageObject in _stageObjects)
-            {
-                stageObject.Update(gameTime);
-            }
-        }
-
-        private void RemoveStageObject(StageObject stageObject)
-        {
-            stageObject.Stage = null;
-            _stageObjects.Remove(stageObject);
-        }
-        
-        private void AddStageObject(StageObject stageObject)
-        {
-            stageObject.Stage = this;
-            _stageObjects.Add(stageObject);
-        }
-
-        private static void ProcessRequests()
-        {
-            while (_stageRequests.Count > 0)
-            {
-                var request = _stageRequests.Pop();
-                var @stage = request.Stage;
-                
-                switch (request)
-                {
-                    case StageObjectRequest objectRequest:
-                        var @object = objectRequest.StageObject;
-                        var @type = objectRequest.RequestType;
-                        switch (@type)
-                        {
-                            case StageObjectRequestType.Add:
-                                @stage.AddStageObject(@object);
-                                break;
-                            case StageObjectRequestType.Remove:
-                                @stage.RemoveStageObject(@object);
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException();
-                        }
-                        break;
-                }
-            }
-        }
-
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            foreach (var stageObject in _stageObjects)
-            {
-                stageObject.Draw(spriteBatch, gameTime);
-            }
+            return Get((int) x, (int) y);
         }
     }
 }

@@ -1,90 +1,50 @@
-﻿using System;
-using grid_engine.EngineEventArgs;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX;
+using Point = Microsoft.Xna.Framework.Point;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace grid_engine
 {
     public abstract class StageObject
     {
-        private Vector2 _position;
-        private Stage _stage;
-        private bool _isVisible = true;
-        private bool _isActive = true;
-
-        public EventHandler<BoolEventArgs> VisibilityChanged;
-        public EventHandler<BoolEventArgs> ActiveChanged;
-        public EventHandler<StageChangedEventArgs> StageChanged;
+        public Vector2 Position;
+        public Stage Stage;
+        public bool IsVisible = true;
+        public bool IsActive = true;
         
-        public bool IsVisible
+        protected StageObject(int x = 0, int y = 0,  bool isActive = true, bool isVisible = true)
         {
-            get => _isVisible;
-            set
-            {
-                if (_isVisible.Equals(value)) return;
-                _isVisible = value;
-                OnVisibilityChangedEvent();
-            }
-        }
-
-        public bool IsActive
-        {
-            get => _isActive;
-            set
-            {
-                if (_isActive.Equals(value)) return;
-                _isActive = value;
-                OnActiveChangedEvent();
-            }
-        }
-
-        public Vector2 Position
-        {
-            get => _position;
-            protected set
-            {
-                if (!_position.Equals(value))
-                {
-                    _position = value;
-                }
-            }
+            Position.X = x;
+            Position.Y = y;
+            IsActive = isActive;
+            IsVisible = isVisible;
+            Stage = null;
         }
         
-        public Stage Stage
-        {
-            get => _stage;
-            set
-            {
-                _stage?.RequestRemove(this);
-                _stage = value;
-            }
-        }
-
-        protected StageObject(int x = 0, int y = 0)
-        {
-            _position.X = x;
-            _position.Y = y;
-        }
-        
-        protected StageObject(Vector2 position) : this(position.ToPoint())
+        protected StageObject(Vector2 position, bool isActive = true, bool isVisible = true) : this(position.ToPoint(), isActive, isVisible)
         {
         }
         
-        protected StageObject(Point position) : this(position.X, position.Y)
+        protected StageObject(Point position, bool isActive = true, bool isVisible = true) : this(position.X, position.Y, isActive, isVisible)
         {
         }
 
         public (bool, StageObject) Move(int x, int y)
         {
-            _position.X += x;
-            _position.Y += y;
+            var (success, result) = Stage.Get(Position.X + x, Position.Y + y);
+            if (success) return (false, result);
+            Position.X += x;
+            Position.Y += y;
             return (true, null);
         }
         
         public (bool, StageObject) Teleport(int x, int y)
         {
-            _position.X = x;
-            _position.Y = y;
+            var (success, result) = Stage.Get(x, y);
+            if (success) return (false, result);
+            Position.X = x;
+            Position.Y = y;
             return (true, null);
         }
         
@@ -96,35 +56,6 @@ namespace grid_engine
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (!IsVisible) return;
-        }
-
-        private void SetStage(Stage stage)
-        {
-            
-        }
-
-        private void OnVisibilityChangedEvent()
-        {
-            var eventArgs = new BoolEventArgs(_isVisible);
-            VisibilityChanged?.Invoke(this, eventArgs);
-        }
-        
-        
-        private void OnActiveChangedEvent()
-        {
-            var eventArgs = new BoolEventArgs(_isActive);
-            ActiveChanged?.Invoke(this, eventArgs);
-        }
-        
-        private void OnPositionChangedEvent()
-        {
-            var eventArgs = new BoolEventArgs(_isActive);
-            ActiveChanged?.Invoke(this, eventArgs);
-        }
-        
-        private void OnStageChangedEvent(StageChangedEventArgs eventArgs)
-        {
-            StageChanged?.Invoke(this, eventArgs);
         }
     }
 }

@@ -6,7 +6,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace grid_engine_lib
 {
-     public abstract class StageObject
+    public abstract class StageObject
     {
         public Vector2 Position;
         public Stage Stage;
