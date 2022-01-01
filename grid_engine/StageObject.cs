@@ -13,12 +13,8 @@ namespace grid_engine
     {
         
         public Stage Stage;
-        [JsonProperty]
-        public Vector3 Position;
-        [JsonProperty]
-        public Quaternion Rotation;
-        [JsonProperty]
-        public Vector3 Scale;
+        public Transformation Transformation;
+        public Property[] Properties;
 
     }
 }

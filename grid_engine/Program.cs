@@ -45,7 +45,7 @@ namespace grid_engine
                             {
                                 throw new Exception();
                             }
-                            
+
                             var transformation = stageObject["transformation"];
                             if (transformation == null)
                             {
@@ -54,9 +54,20 @@ namespace grid_engine
 
                             var trans = Transformation.FromJObject((JObject)transformation);
 
+                            var properties = stageObject["properties"];
+                            if (properties != null)
+                            {
+                                for (var j = 0; j < properties.Count(); j++)
+                                {
+                                    var property = properties[j];
+                                    if (property != null)
+                                    {
+                                        var prop = Property.FromJObject((JObject)property);
+                                    }
+                                }
+                            }
                         }
                     }
-                    
                 }
             }
 
