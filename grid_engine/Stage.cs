@@ -1,11 +1,18 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Newtonsoft.Json;
 
 namespace grid_engine
 {
     public class Stage
     {
         public List<StageObject> StageObjects;
+        [JsonProperty("width")]
+        public int Width;
+        [JsonProperty("height")]
+        public int Height;
+        
+        
 
         public Stage()
         {
@@ -27,10 +34,7 @@ namespace grid_engine
         {
             foreach (var o in StageObjects)
             {
-                if (o.Position == new Vector2(x, y))
-                {
-                    return (true, o);
-                }
+                
             }
             return (false, null);
         }

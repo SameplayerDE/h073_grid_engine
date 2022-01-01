@@ -7,6 +7,7 @@ namespace ExampleGame
     public class ExampleGame : Engine
     {
 
+        private StageCollection _stageCollection;
         private Stage _stage;
         private Texture2D _texture;
 
@@ -19,8 +20,13 @@ namespace ExampleGame
 
         protected override void Initialize()
         {
+            _stageCollection = new StageCollection();
+            
             _stage = new Stage();
             _stage.Add(new Box());
+            
+            _stageCollection.Add(_stage);
+            
             base.Initialize();
         }
 
@@ -34,14 +40,14 @@ namespace ExampleGame
         {
             GraphicsDevice.Clear(Color.Black);
 
-            _spriteBatch.Begin();
+            SpriteBatch.Begin();
 
             foreach (var o in _stage.StageObjects)
             {
-                _spriteBatch.Draw(_texture, o.Position, Color.White);
+                SpriteBatch.Draw(_texture, o.Position, Color.White);
             }
             
-            _spriteBatch.End();
+            SpriteBatch.End();
 
         }
     }

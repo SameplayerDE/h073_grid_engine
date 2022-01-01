@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Principal;
-using grid_engine.StageObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -21,6 +20,7 @@ namespace grid_engine
         public InputActionManager GameplayActions;
         public InputActionManager InventoryActions;
         
+
         public enum Actions
         {
             Enter,
@@ -70,7 +70,6 @@ namespace grid_engine
         protected override void Initialize()
         {
             _stage = new Stage();
-            _stage.Add(new Chest());
 
             GameplayActions = new InputActionManager();
             InventoryActions = new InputActionManager();
@@ -131,10 +130,7 @@ namespace grid_engine
         {
             GraphicsDevice.Clear(Color.White);
             _spriteBatch.Begin();
-            foreach (var o in _stage.StageObjects)
-            {
-                _spriteBatch.Draw(x32Miss, o.Position, Color.White);
-            }
+
             _spriteBatch.End();
             base.Draw(gameTime);
         }

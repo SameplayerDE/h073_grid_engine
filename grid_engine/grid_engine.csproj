@@ -8,10 +8,18 @@
     <ItemGroup>
       <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
       <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.0.1641" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Content" />
+      <Folder Include="StageObjects" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="stage_pre.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

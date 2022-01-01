@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace grid_engine_lib
@@ -6,6 +7,8 @@ namespace grid_engine_lib
     public class Stage
     {
         public List<StageObject> StageObjects;
+        public int Width;
+        public int Height;
 
         public Stage()
         {

@@ -1,73 +1,73 @@
 {
-    "StageObjects": [
+    "stage_objects": [
         {
-            "Type": "Door",
-            "Transformation": {
-                "Position": {
-                    "X": 0,
-                    "Y": 0,
-                    "Z": 0
+            "type": "Door",
+            "transformation": {
+                "position": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
                 },
-                "Rotation": {
-                    "X": 0,
-                    "Y": 0,
-                    "Z": 0,
-                    "W": 1
+                "rotation": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0,
+                    "w": 1
                 },
-                "Scale": {
-                    "X": 1,
-                    "Y": 1,
-                    "Z": 1
+                "scale": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
                 }
             },
-            "Properties": [
+            "properties": [
                 {
-                    "Identifier": "IsOpen",
-                    "Type": "bool",
-                    "Value": "FALSE"
+                    "identifier": "IsOpen",
+                    "type": "bool",
+                    "value": "FALSE"
                 }
             ]
         },
         {
-            "Type": "Chest",
-            "Transformation": {
-                "Position": {
-                    "X": 0,
-                    "Y": 0,
-                    "Z": 0
+            "type": "Chest",
+            "transformation": {
+                "position": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
                 },
-                "Rotation": {
-                    "X": 0,
-                    "Y": 0,
-                    "Z": 0,
-                    "W": 1
+                "rotation": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0,
+                    "w": 1
                 },
-                "Scale": {
-                    "X": 1,
-                    "Y": 1,
-                    "Z": 1
+                "scale": {
+                    "x": 1,
+                    "y": 1,
+                    "z": 1
                 }
             },
-            "Properties": [
+            "properties": [
                 {
-                    "Identifier": "IsOpen",
-                    "Type": "bool",
-                    "Value": "FALSE"
+                    "identifier": "IsOpen",
+                    "type": "bool",
+                    "value": "FALSE"
                 },
                 {
-                    "Identifier": "Content",
-                    "Type": "item",
-                    "Value": {
-                        "Material": "Key",
-                        "Count": 1,
-                        "Tags": [
+                    "identifier": "Content",
+                    "type": "item",
+                    "value": {
+                        "material": "Key",
+                        "count": 1,
+                        "tags": [
                             {
-                                "Identifier": "Display",
-                                "Value": "Key"
+                                "identifier": "Display",
+                                "value": "Key"
                             },
                             {
-                                "Identifier": "UnlockType",
-                                "Value": "Door"
+                                "identifier": "UnlockType",
+                                "value": "Door"
                             }
                         ]
                     }
@@ -75,11 +75,11 @@
             ]
         }
     ],
-    "Stage": {
-        "Width" : 10,
-        "Height": 10,
-        "Name": "Stage",
-        "Tiles": [
+    "stage": {
+        "width" : 10,
+        "height": 10,
+        "name": "Stage",
+        "tiles": [
             0,0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,0,
