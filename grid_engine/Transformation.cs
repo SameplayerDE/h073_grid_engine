@@ -10,6 +10,10 @@ namespace grid_engine
         public Quaternion Rotation;
         public Vector3 Scale;
 
+        public Vector2 PositionXY => new Vector2(Position.X, Position.Y);
+        public Vector2 PositionXZ => new Vector2(Position.X, Position.Z);
+        public Vector2 PositionYZ => new Vector2(Position.Y, Position.Z);
+
         public static Transformation FromJObject(JObject jObject)
         {
             var position = jObject["position"];
@@ -82,4 +86,5 @@ namespace grid_engine
         }
         
     }
+    
 }

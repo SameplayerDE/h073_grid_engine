@@ -19,7 +19,6 @@ namespace grid_engine
 
         public InputActionManager GameplayActions;
         public InputActionManager InventoryActions;
-        
 
         public enum Actions
         {

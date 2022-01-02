@@ -15,6 +15,12 @@ namespace grid_engine
         public Stage Stage;
         public Transformation Transformation;
         public Property[] Properties;
+        public StageObjectRenderer Renderer;
+
+        public StageObject()
+        {
+            Renderer = new StageObjectRenderer(this, null);
+        }
 
     }
 }

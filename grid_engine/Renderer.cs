@@ -10,8 +10,7 @@ namespace grid_engine
         {
             Object = @object;
         }
-            
-
+        
         public abstract void Draw(SpriteBatch spriteBatch);
     }
 }
