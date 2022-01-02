@@ -9,13 +9,18 @@ namespace grid_engine_lib.Framework
 
     public abstract class StageObject : Object
     {
-        public Transformation Transformation = Transformation.Default;
+        public Transformation Transformation => Get<Transformation>();
         public Stage Stage;
 
         public Vector3 Position => Transformation.Position;
         public Quaternion Rotation => Transformation.Rotation;
         public Vector3 Scale => Transformation.Scale;
 
+        protected StageObject()
+        {
+            Attach(Transformation.Default);
+        }
+        
         public (bool, StageObject) Move(int x, int y)
         {
             var (success, result) = Stage.Get(Position.X + x, Position.Y + y);

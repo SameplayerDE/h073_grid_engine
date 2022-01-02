@@ -2,7 +2,7 @@
 
 namespace grid_engine_lib.Framework
 {
-    public struct Transformation
+    public class Transformation : EngineComponent
     {
 
         private static readonly Transformation @default = new Transformation()

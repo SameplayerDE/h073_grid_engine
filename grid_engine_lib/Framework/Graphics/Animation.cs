@@ -25,9 +25,10 @@ namespace grid_engine_lib.Framework.Graphics
         {
             var animationStep = AnimationSteps[Index];
 
-            if (animationStep.DisplayDuration >= ElapsedTime)
+            if (animationStep.DisplayDuration <= ElapsedTime)
             {
                 Index += 1;
+                ElapsedTime = TimeSpan.Zero;
             }
             else
             {
