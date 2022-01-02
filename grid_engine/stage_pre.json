@@ -1,4 +1,20 @@
 {
+    "items": [
+        {
+        "material": "Key",
+        "count": 1,
+        "tags": [
+            {
+                "identifier": "Display",
+                "value": "Key"
+            },
+            {
+                "identifier": "UnlockType",
+                "value": "Door"
+            }
+        ]
+    }
+    ],
     "stage_objects": [
         {
             "type": "Door",
@@ -57,20 +73,7 @@
                 {
                     "identifier": "Content",
                     "type": "item",
-                    "value": {
-                        "material": "Key",
-                        "count": 1,
-                        "tags": [
-                            {
-                                "identifier": "Display",
-                                "value": "Key"
-                            },
-                            {
-                                "identifier": "UnlockType",
-                                "value": "Door"
-                            }
-                        ]
-                    }
+                    "value": "1"
                 }
             ]
         }

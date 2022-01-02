@@ -7,6 +7,7 @@ namespace grid_engine
     public class Stage
     {
         public List<StageObject> StageObjects;
+        public List<Item> Items;
         [JsonProperty("width")]
         public int Width;
         [JsonProperty("height")]
