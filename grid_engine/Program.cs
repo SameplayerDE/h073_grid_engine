@@ -130,6 +130,14 @@ namespace grid_engine
                                     var property = properties[j];
                                     if (property != null)
                                     {
+
+                                        var identifier = property.Value<string>("identifier");
+                                        var type = property.Value<string>("type");
+                                        
+                                        //Pick Type Loader
+
+                                        PropertyLoader.Loaders[type].Load(property["value"]);
+                                        
                                         loadedProperties.Add(Property.FromJObject((JObject)property));
                                     }
                                 }

@@ -12,12 +12,13 @@ namespace grid_engine
         public int Width;
         [JsonProperty("height")]
         public int Height;
-        
-        
+
+        public StageRenderer StageRenderer;
 
         public Stage()
         {
             StageObjects = new List<StageObject>();
+            this.StageRenderer = new StageRenderer(this);
         }
 
         ~Stage()
