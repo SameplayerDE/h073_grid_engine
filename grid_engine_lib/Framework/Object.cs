@@ -7,18 +7,18 @@ namespace grid_engine_lib.Framework
     public abstract class Object
     {
         public string Name = Guid.NewGuid().ToString();
-        private readonly HashSet<EngineComponent> _components;
+        public readonly HashSet<EngineComponent> Components;
 
         protected Object()
         {
             // ReSharper disable once HeapView.ObjectAllocation.Evident
-            _components = new HashSet<EngineComponent>();
+            Components = new HashSet<EngineComponent>();
         }
 
         public bool Attach(EngineComponent component)
         {
             component.Object = this;
-            return _components.Add(component);
+            return Components.Add(component);
         }
 
         public void Attach(HashSet<EngineComponent> components)
@@ -26,13 +26,13 @@ namespace grid_engine_lib.Framework
             foreach (var component in components)
             {
                 component.Object = this;
-                _components.Add(component);
+                Components.Add(component);
             }
         }
 
         public T Get<T>() where T : EngineComponent
         {
-            foreach (var component in _components)
+            foreach (var component in Components)
             {
                 if (component is T obj)
                     return obj;
@@ -44,12 +44,12 @@ namespace grid_engine_lib.Framework
         public bool Has<T>() where T : EngineComponent
         {
             // ReSharper disable once HeapView.ObjectAllocation
-            return _components.OfType<T>().Any();
+            return Components.OfType<T>().Any();
         }
 
         public void Detach(EngineComponent component)
         {
-            _components.Remove(component);
+            Components.Remove(component);
         }
     }
 }

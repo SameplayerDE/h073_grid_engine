@@ -21,7 +21,7 @@ namespace grid_engine_lib.Framework
             Attach(Transformation.Default);
         }
         
-        public (bool, StageObject) Move(int x, int y)
+        public (bool, Object) Move(int x, int y)
         {
             var (success, result) = Stage.Get(Position.X + x, Position.Y + y);
             if (success) return (false, result);
@@ -29,7 +29,7 @@ namespace grid_engine_lib.Framework
             return (true, null);
         }
 
-        public (bool, StageObject) Teleport(int x, int y)
+        public (bool, Object) Teleport(int x, int y)
         {
             var (success, result) = Stage.Get(x, y);
             if (success) return (false, result);
@@ -39,10 +39,24 @@ namespace grid_engine_lib.Framework
 
         public virtual void Update(GameTime gameTime)
         {
+            foreach (var component in Components)
+            {
+                if (component is IUpdateable updateable)
+                {
+                    updateable.Update(gameTime);
+                }
+            }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            foreach (var component in Components)
+            {
+                if (component is IDrawable drawable)
+                {
+                    drawable.Draw(spriteBatch, gameTime);
+                }
+            }
         }
     }
 }

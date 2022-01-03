@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using grid_engine_lib.Framework.Renderers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace grid_engine_lib
@@ -13,6 +14,12 @@ namespace grid_engine_lib
         {
             // ReSharper disable once HeapView.ObjectAllocation.Evident
             Graphics = new GraphicsDeviceManager(this);
+        }
+
+        protected override void Initialize()
+        {
+            base.Initialize();
+            SpritebatchExtension.Init(GraphicsDevice);
         }
 
         protected override void LoadContent()

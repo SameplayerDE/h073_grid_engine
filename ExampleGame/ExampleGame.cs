@@ -3,8 +3,12 @@ using grid_engine_lib;
 using grid_engine_lib.Framework;
 using grid_engine_lib.Framework.Components;
 using grid_engine_lib.Framework.Graphics;
+using grid_engine_lib.Framework.Renderers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using StageRenderer = grid_engine_lib.Framework.Components.StageRenderer;
+using TextureRenderer = grid_engine_lib.Framework.Components.TextureRenderer;
 
 namespace ExampleGame
 {
@@ -28,12 +32,12 @@ namespace ExampleGame
             _stage.Add(new Box() {Name = "Box"});
 
             _animation = new Animation();
-            for (int i = 0; i < 16; i++)
+            for (var i = 0; i < 16; i++)
             {
                 _animation.AnimationSteps.Add(new AnimationStep()
                 {
                     DisplayDuration = TimeSpan.FromMilliseconds(1000),
-                    Section = new Rectangle(8 * (i % 8), 8 * (i / 8), 8, 8)
+                    Section = new Rectangle(8 * (i % 4), 8 * (i / 4), 8, 8)
                 });
             }
 
@@ -52,12 +56,7 @@ namespace ExampleGame
 
         protected override void Update(GameTime gameTime)
         {
-            var (success, result) = _stage.GetByName("Box");
-            if (success)
-            {
-                result.Transformation.Translate(new Vector2(1, 0) * (float) gameTime.ElapsedGameTime.TotalSeconds);
-            }
-            _animation.Update(gameTime);
+            _stage.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -65,13 +64,11 @@ namespace ExampleGame
             GraphicsDevice.Clear(Color.Black);
 
             SpriteBatch.Begin();
-
-            foreach (var o in _stage.StageObjects)
-            {
-                //SpriteBatch.Draw(_texture, o.Position.ToiXY(), Color.White);
-                var textureRenderer = o.Get<TextureRenderer>();
-                textureRenderer?.Draw(SpriteBatch, gameTime);
-            }
+            
+            _stage.Get<StageRenderer>().Draw(SpriteBatch, gameTime);
+            
+            SpriteBatch.DrawLine(Vector2.Zero, Mouse.GetState().Position.ToVector2(), Color.White);
+            SpriteBatch.DrawRectangle(new Rectangle(0, 0, Mouse.GetState().X, Mouse.GetState().Y), Color.White);
 
             SpriteBatch.End();
         }
