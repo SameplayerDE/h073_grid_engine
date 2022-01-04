@@ -70,7 +70,7 @@ namespace ExampleGame
         {
             GraphicsDevice.Clear(Color.Black);
 
-            SpriteBatch.Begin();
+            SpriteBatch.Begin(samplerState: SamplerState.AnisotropicClamp);
 
             _stage.Get<StageRenderer>().Draw(GraphicsDevice, SpriteBatch, gameTime);
 

@@ -12,7 +12,7 @@ namespace ExampleGame
         public Texture2D Texture;
         public Effect Effect;
 
-        public int PixelsPerUnit = 150;
+        public int PixelsPerUnit = 16;
 
         public bool FlipX = false;
         public bool FlipY = false;
@@ -50,7 +50,7 @@ namespace ExampleGame
             {
                 if (animation == null)
                 {
-                    w = (float) Texture.Width / PixelsPerUnit;
+                    w = (float) Texture.Width / (stageObject.Stage.CellWidth / PixelsPerUnit);
                     h = (float) Texture.Height / PixelsPerUnit;
 
                     var hw = w / 2;
@@ -69,8 +69,8 @@ namespace ExampleGame
                 {
                     var animationStep = animation.Animation.CurrentStep;
 
-                    w = (float) animationStep.Section.Width / stageObject.Stage.CellWidth / PixelsPerUnit;
-                    h = (float) animationStep.Section.Height / PixelsPerUnit / stageObject.Stage.CellHeight;
+                    w = (float) 1;
+                    h = (float) 1;
 
                     var hw = w / 2;
                     var hh = h / 2;
@@ -152,7 +152,7 @@ namespace ExampleGame
 
             var world = transformation.SRTMatrix;
 
-            var view = Matrix.CreateLookAt(Vector3.One, Vector3.Zero, Vector3.Up);
+            var view = Matrix.CreateLookAt(new Vector3(0, 0, 1), new Vector3(0, 0, 0), Vector3.Up);
             var projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(70f),
                 graphicsDevice.Viewport.AspectRatio, 0.01f, 100f);
 

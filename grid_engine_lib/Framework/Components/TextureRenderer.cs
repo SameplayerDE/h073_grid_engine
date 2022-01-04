@@ -21,25 +21,37 @@ namespace grid_engine_lib.Framework.Components
 
             if (Object is StageObject stageObject)
             {
-                var renderPosition = stageObject.Position * stageObject.Stage.Cell;
+                var position = stageObject.Position;
+                var stageCell = stageObject.Stage.Cell;
+
+                var renderPosition = position * stageCell;
+                
+                var renderSection = new Rectangle(
+                    renderPosition.ToiXY().ToPoint(),
+                    stageCell.ToiXY().ToPoint()
+                    );
+                
                 if (animation != null)
                 {
-                    spriteBatch.Draw(Texture2D, renderPosition.ToiXY(), animation.Animation.CurrentStep.Section, Color.White);
+                    spriteBatch.Draw(Texture2D, renderSection, animation.Animation.CurrentStep.Section, Color.White);
                 }
                 else
                 {
-                    spriteBatch.Draw(Texture2D, renderPosition.ToiXY(), Color.White);
+                    spriteBatch.Draw(Texture2D, renderSection, Color.White);
                 }
             }
             else
             {
+                
+                var position = transformation.Position;
+
                 if (animation != null)
                 {
-                    spriteBatch.Draw(Texture2D, transformation.Position.ToiXY(), animation.Animation.CurrentStep.Section, Color.White);
+                    spriteBatch.Draw(Texture2D, position.ToiXY(), animation.Animation.CurrentStep.Section, Color.White);
                 }
                 else
                 {
-                    spriteBatch.Draw(Texture2D, transformation.Position.ToiXY(), Color.White);
+                    spriteBatch.Draw(Texture2D, position.ToiXY(), Color.White);
                 }
             }
             
