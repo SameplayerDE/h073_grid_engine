@@ -7,7 +7,7 @@ namespace grid_engine_lib.Framework
 {
     public class Stage : Object
     {
-        public List<StageObject> StageObjects;
+        
         public List<Object> Objects;
         
         private Queue<Object> _removeQueue = new Queue<Object>();
@@ -15,22 +15,30 @@ namespace grid_engine_lib.Framework
         
         public int Width;
         public int Height;
+        
+        public int CellWidth = 64;
+        public int CellHeight = 64;
+        public int CellDepth = 64;
+
+        public Vector3 Cell => new Vector3(CellWidth, CellHeight, CellDepth);
 
         public Stage()
         {
-            StageObjects = new List<StageObject>();
             Objects = new List<Object>();
             Attach(new StageRenderer(this));
         }
 
         ~Stage()
         {
-            StageObjects.Clear();
             Objects.Clear();
         }
 
         public void Add(Object @object)
         {
+            if (@object is StageObject stageObject)
+            {
+                stageObject.Stage = this;
+            }
             Objects.Add(@object);
         }
         

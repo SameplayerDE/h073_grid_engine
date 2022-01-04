@@ -18,15 +18,34 @@ namespace grid_engine_lib.Framework.Components
 
             var transformation = Object.Get<Transformation>() ?? throw new Exception();
             var animation = Object.Get<AnimationController>();
-            
-            if (animation != null)
+
+            if (Object is StageObject stageObject)
             {
-                spriteBatch.Draw(Texture2D, transformation.Position.ToiXY(), animation.Animation.CurrentStep.Section, Color.White);
+                var renderPosition = stageObject.Position * stageObject.Stage.Cell;
+                if (animation != null)
+                {
+                    spriteBatch.Draw(Texture2D, renderPosition.ToiXY(), animation.Animation.CurrentStep.Section, Color.White);
+                }
+                else
+                {
+                    spriteBatch.Draw(Texture2D, renderPosition.ToiXY(), Color.White);
+                }
             }
             else
             {
-                spriteBatch.Draw(Texture2D, transformation.Position.ToiXY(), Color.White);
+                if (animation != null)
+                {
+                    spriteBatch.Draw(Texture2D, transformation.Position.ToiXY(), animation.Animation.CurrentStep.Section, Color.White);
+                }
+                else
+                {
+                    spriteBatch.Draw(Texture2D, transformation.Position.ToiXY(), Color.White);
+                }
             }
+            
+            
+            
+            
 
         }
     }
