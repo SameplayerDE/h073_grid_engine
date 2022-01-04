@@ -54,7 +54,7 @@ namespace grid_engine_lib.Framework
             {
                 if (component is IDrawable drawable)
                 {
-                    drawable.Draw(spriteBatch, gameTime);
+                    drawable.Draw(null, spriteBatch, gameTime);
                 }
             }
         }

@@ -13,7 +13,7 @@ namespace grid_engine_lib.Framework.Components
             Stage = stage;
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (Stage == null)
             {
@@ -27,7 +27,7 @@ namespace grid_engine_lib.Framework.Components
                 {
                     if (component is IDrawable drawable)
                     {
-                        drawable.Draw(spriteBatch, gameTime);
+                        drawable.Draw(graphicsDevice, spriteBatch, gameTime);
                     }
                 }
             }

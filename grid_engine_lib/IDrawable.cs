@@ -5,6 +5,6 @@ namespace grid_engine_lib
 {
     public interface IDrawable
     {
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime);
+        public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime);
     }
 }

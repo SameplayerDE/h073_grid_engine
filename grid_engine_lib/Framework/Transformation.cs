@@ -18,9 +18,15 @@ namespace grid_engine_lib.Framework
         public Quaternion Rotation;
         public Vector3 Scale;
         
+        public Matrix TranslationMatrix => Matrix.CreateTranslation(Position);
+        public Matrix RotationMatrix => Matrix.CreateFromQuaternion(Rotation);
+        public Matrix ScaleMatrix => Matrix.CreateScale(Scale);
+        public Matrix TRSMatrix => TranslationMatrix * RotationMatrix * ScaleMatrix;
+        public Matrix SRTMatrix => ScaleMatrix * RotationMatrix * TranslationMatrix;
+        
         #region Translation
 
-        public void Translate(float x = 0, float y = 0, float z = 0)
+        public void Translate(float x, float y, float z = 0)
         {
             Position.X += x;
             Position.Y += y;

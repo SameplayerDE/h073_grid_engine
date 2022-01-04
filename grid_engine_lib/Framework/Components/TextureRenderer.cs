@@ -9,7 +9,7 @@ namespace grid_engine_lib.Framework.Components
 
         public Texture2D Texture2D;
         
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (Texture2D == null)
             {

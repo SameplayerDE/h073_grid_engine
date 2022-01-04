@@ -8,6 +8,8 @@ namespace ExampleGame
         public Box()
         {
             Attach(new TextureRenderer());
+            Attach(new SpriteRenderer());
+            Attach(new Controller());
         }
     }
 }

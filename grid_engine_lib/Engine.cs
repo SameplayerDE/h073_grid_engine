@@ -24,8 +24,14 @@ namespace grid_engine_lib
 
         protected override void LoadContent()
         {
-            SpriteBatch = new SpriteBatch(GraphicsDevice);
             base.LoadContent();
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
+        }
+
+        protected override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            Input.Update();
         }
     }
 }
