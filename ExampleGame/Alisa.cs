@@ -8,8 +8,7 @@ namespace ExampleGame
         public Alisa()
         {
             Attach(new TextureRenderer());
-            Attach(new SpriteRenderer());
-            //Attach(new Controller());
+            Attach(new Controller());
         }
     }
 }

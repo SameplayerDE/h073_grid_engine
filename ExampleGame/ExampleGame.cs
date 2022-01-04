@@ -1,4 +1,5 @@
-﻿using grid_engine_lib;
+﻿using System;
+using grid_engine_lib;
 using grid_engine_lib.Framework;
 using grid_engine_lib.Framework.Components;
 using grid_engine_lib.Framework.Graphics;
@@ -15,8 +16,7 @@ namespace ExampleGame
     {
         private Stage _stage;
         private Texture2D _texture;
-
-        private Animation _animation;
+        private float _scale = 12f;
 
         public ExampleGame()
         {
@@ -28,12 +28,12 @@ namespace ExampleGame
         protected override void Initialize()
         {
             _stage = StageLoader.Load(@"Content/stage_template.json");
+            
             _stage.Add(new Alisa() { Name = "Alisa" });
-
-            _animation = AnimationLoader.Load("Content/animation_template.json");
-
-            _stage.GetByName("Alisa").Item2.Attach(new AnimationController(_animation));
-
+            _stage.Add(new Barrel() { Name = "Barrel" });
+            
+            _stage.GetByName("Alisa").Item2.Attach(new AnimationController(AnimationLoader.Load("Content/animation_template.json")));
+            
             base.Initialize();
         }
 
@@ -46,11 +46,10 @@ namespace ExampleGame
             {
                 _stage.GetByName("Alisa").Item2.Get<TextureRenderer>().Texture2D = _texture;
             }
-
-            if (_stage.GetByName("Alisa").Item2.Get<SpriteRenderer>() != null)
+            
+            if (_stage.GetByName("Barrel").Item2.Get<TextureRenderer>() != null)
             {
-                _stage.GetByName("Alisa").Item2.Get<SpriteRenderer>().Texture = _texture;
-                _stage.GetByName("Alisa").Item2.Get<SpriteRenderer>().Effect = Content.Load<Effect>("default");
+                _stage.GetByName("Barrel").Item2.Get<TextureRenderer>().Texture2D = Content.Load<Texture2D>("barrel");
             }
         }
 
@@ -64,7 +63,7 @@ namespace ExampleGame
         {
             GraphicsDevice.Clear(Color.Black);
 
-            SpriteBatch.Begin(samplerState: SamplerState.AnisotropicClamp);
+            SpriteBatch.Begin(samplerState: SamplerState.AnisotropicClamp, transformMatrix: Matrix.CreateScale(_scale) * Matrix.CreateTranslation(new Vector3(GraphicsDevice.Viewport.Bounds.Size.ToVector2() / 2, 0)) * Matrix.CreateTranslation(-_stage.GetByName("Alisa").Item2.Get<Transformation>().Position * _stage.Cell * _scale));
 
             _stage.Get<StageRenderer>().Draw(GraphicsDevice, SpriteBatch, gameTime);
 

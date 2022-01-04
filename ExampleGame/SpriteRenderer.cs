@@ -9,7 +9,7 @@ namespace ExampleGame
 {
     public class SpriteRenderer : EngineComponent, IDrawable
     {
-        public Texture2D Texture;
+        public Texture2D Texture2D;
         public Effect Effect;
 
         public int PixelsPerUnit = 16;
@@ -22,14 +22,14 @@ namespace ExampleGame
         {
         }
 
-        public SpriteRenderer(Texture2D texture)
+        public SpriteRenderer(Texture2D texture2D)
         {
-            Texture = texture;
+            Texture2D = texture2D;
         }
 
         public void Draw(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, GameTime gameTime)
         {
-            if (Texture == null)
+            if (Texture2D == null)
             {
                 throw new NullReferenceException();
             }
@@ -68,14 +68,13 @@ namespace ExampleGame
             if (animation != null)
             {
                 var animationStep = animation.Animation.CurrentStep;
-                minX = (float)animationStep.Section.X / Texture.Width;
-                minY = (float)animationStep.Section.Y / Texture.Height;
-                maxX = (float)animationStep.Section.Width / Texture.Width;
-                maxY = (float)animationStep.Section.Height / Texture.Height;
+                minX = (float)animationStep.Section.X / Texture2D.Width;
+                minY = (float)animationStep.Section.Y / Texture2D.Height;
+                maxX = (float)animationStep.Section.Width / Texture2D.Width;
+                maxY = (float)animationStep.Section.Height / Texture2D.Height;
                 maxX += minX;
                 maxY += minY;
             }
-
 
             if (Object is StageObject stageObject)
             {
@@ -93,21 +92,13 @@ namespace ExampleGame
                    // projection = camera.Get<CameraParameters>().Projection;
                 }
                 
-                if (animation == null)
-                {
-                    w = (float)Texture.Width / (stageObject.Stage.CellWidth / PixelsPerUnit);
-                    h = (float)Texture.Height / PixelsPerUnit;
-
-                    hw = w / 2;
-                    hh = h / 2;
-                }
             }
             else
             {
                 if (animation == null)
                 {
-                    w = (float)Texture.Width / PixelsPerUnit;
-                    h = (float)Texture.Height / PixelsPerUnit;
+                    w = (float)Texture2D.Width / PixelsPerUnit;
+                    h = (float)Texture2D.Height / PixelsPerUnit;
 
                     hw = w / 2;
                     hh = h / 2;
@@ -140,7 +131,7 @@ namespace ExampleGame
             Effect.Parameters["WorldViewProjection"]
                 .SetValue(world * view * projection);
             Effect.Parameters["Texture"]
-                .SetValue(Texture);
+                .SetValue(Texture2D);
             Effect.Parameters["FlipX"]
                 .SetValue(FlipX);
             Effect.Parameters["FlipY"]
