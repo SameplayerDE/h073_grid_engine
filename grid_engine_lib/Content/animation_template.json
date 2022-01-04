@@ -1,0 +1,125 @@
+{
+    "animation": {
+        "step_count": 3,
+        "texture_path": "texture.png",
+        "steps": [
+            {
+                "section": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 150,
+                    "height": 150
+                },
+                "duration": 75
+            },
+            {
+                "section": {
+                    "x": 150,
+                    "y": 0,
+                    "width": 150,
+                    "height": 150
+                },
+                "duration": 100
+            },
+            {
+                "section": {
+                    "x": 300,
+                    "y": 0,
+                    "width": 150,
+                    "height": 150
+                },
+                "duration": 100
+            },
+            {
+                "section": {
+                    "x": 450,
+                    "y": 0,
+                    "width": 150,
+                    "height": 150
+                },
+                "duration": 100
+            },
+            {
+                "section": {
+                    "x": 600,
+                    "y": 0,
+                    "width": 150,
+                    "height": 150
+                },
+                "duration": 100
+            },
+            {
+                "section": {
+                    "x": 750,
+                    "y": 0,
+                    "width": 150,
+                    "height": 150
+                },
+                "duration": 75
+            },
+            {
+                "section": {
+                    "x": 900,
+                    "y": 0,
+                    "width": 150,
+                    "height": 150
+                },
+                "duration": 50
+            },
+            {
+                "section": {
+                    "x": 1050,
+                    "y": 0,
+                    "width": 150,
+                    "height": 150
+                },
+                "duration": 50
+            },
+            {
+                "section": {
+                    "x": 1200,
+                    "y": 0,
+                    "width": 150,
+                    "height": 150
+                },
+                "duration": 50
+            },
+            {
+                "section": {
+                    "x": 1350,
+                    "y": 0,
+                    "width": 150,
+                    "height": 150
+                },
+                "duration": 50
+            },
+            {
+                "section": {
+                    "x": 1500,
+                    "y": 0,
+                    "width": 150,
+                    "height": 150
+                },
+                "duration": 50
+            },
+            {
+                "section": {
+                    "x": 1650,
+                    "y": 0,
+                    "width": 150,
+                    "height": 150
+                },
+                "duration": 50
+            },
+            {
+                "section": {
+                    "x": 1800,
+                    "y": 0,
+                    "width": 150,
+                    "height": 150
+                },
+                "duration": 75
+            }
+        ]
+    }
+}

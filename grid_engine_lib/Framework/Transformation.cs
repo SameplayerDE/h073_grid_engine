@@ -4,15 +4,8 @@ namespace grid_engine_lib.Framework
 {
     public class Transformation : EngineComponent
     {
-
-        private static readonly Transformation @default = new Transformation()
-        {
-            Position = Vector3.Zero,
-            Rotation = Quaternion.Identity,
-            Scale = Vector3.One
-        };
-
-        public static Transformation Default => @default;
+        
+        public static Transformation Default => new Transformation();
         
         public Vector3 Position;
         public Quaternion Rotation;
@@ -23,6 +16,13 @@ namespace grid_engine_lib.Framework
         public Matrix ScaleMatrix => Matrix.CreateScale(Scale);
         public Matrix TRSMatrix => TranslationMatrix * RotationMatrix * ScaleMatrix;
         public Matrix SRTMatrix => ScaleMatrix * RotationMatrix * TranslationMatrix;
+
+        public Transformation()
+        {
+            Position = Vector3.Zero;
+            Rotation = Quaternion.Identity;
+            Scale = Vector3.One;
+        }
         
         #region Translation
 

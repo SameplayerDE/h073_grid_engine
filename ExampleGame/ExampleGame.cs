@@ -1,5 +1,4 @@
-﻿using System;
-using grid_engine_lib;
+﻿using grid_engine_lib;
 using grid_engine_lib.Framework;
 using grid_engine_lib.Framework.Components;
 using grid_engine_lib.Framework.Graphics;
@@ -29,20 +28,11 @@ namespace ExampleGame
         protected override void Initialize()
         {
             _stage = StageLoader.Load(@"Content/stage_template.json");
-            _stage.Add(new Box() {Name = "Box"});
+            _stage.Add(new Alisa() { Name = "Alisa" });
 
-            _animation = new Animation();
-            for (var i = 0; i < 13; i++)
-            {
-                _animation.AnimationSteps.Add(new AnimationStep()
-                {
-                    DisplayDuration = TimeSpan.FromMilliseconds(100),
-                    Section = new Rectangle(150 * i, 0, 150, 150)
-                });
-            }
+            _animation = AnimationLoader.Load("Content/animation_template.json");
 
-            _stage.GetByName("Box").Item2.Attach(new AnimationController(_animation));
-
+            _stage.GetByName("Alisa").Item2.Attach(new AnimationController(_animation));
 
             base.Initialize();
         }
@@ -52,11 +42,15 @@ namespace ExampleGame
             base.LoadContent();
             _texture = Content.Load<Texture2D>("alisa");
 
-            _stage.GetByName("Box").Item2.Get<TextureRenderer>().Texture2D = _texture;
-            if (_stage.GetByName("Box").Item2.Get<SpriteRenderer>() != null)
+            if (_stage.GetByName("Alisa").Item2.Get<TextureRenderer>() != null)
             {
-                _stage.GetByName("Box").Item2.Get<SpriteRenderer>().Texture = _texture;
-                _stage.GetByName("Box").Item2.Get<SpriteRenderer>().Effect = Content.Load<Effect>("default");
+                _stage.GetByName("Alisa").Item2.Get<TextureRenderer>().Texture2D = _texture;
+            }
+
+            if (_stage.GetByName("Alisa").Item2.Get<SpriteRenderer>() != null)
+            {
+                _stage.GetByName("Alisa").Item2.Get<SpriteRenderer>().Texture = _texture;
+                _stage.GetByName("Alisa").Item2.Get<SpriteRenderer>().Effect = Content.Load<Effect>("default");
             }
         }
 

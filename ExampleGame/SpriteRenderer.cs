@@ -44,118 +44,99 @@ namespace ExampleGame
 
             var data = new MeshData();
 
-            float w, h;
+            var world = transformation.SRTMatrix;
+            
+            var view = Matrix.CreateLookAt(
+                new Vector3(0, 0, 1),
+                new Vector3(0, 0, 0),
+                Vector3.Up
+            );
+
+            var projection = Matrix.CreatePerspectiveFieldOfView(
+                MathHelper.ToRadians(70f),
+                graphicsDevice.Viewport.AspectRatio,
+                0.01f,
+                100f
+            );
+
+            float w = 1f, h = 1f;
+            float hw = w / 2f;
+            float hh = h / 2f;
+
+            float minX = 0, minY = 0, maxX = 1, maxY = 1;
+
+            if (animation != null)
+            {
+                var animationStep = animation.Animation.CurrentStep;
+                minX = (float)animationStep.Section.X / Texture.Width;
+                minY = (float)animationStep.Section.Y / Texture.Height;
+                maxX = (float)animationStep.Section.Width / Texture.Width;
+                maxY = (float)animationStep.Section.Height / Texture.Height;
+                maxX += minX;
+                maxY += minY;
+            }
+
 
             if (Object is StageObject stageObject)
             {
+
+                if (stageObject.Stage == null)
+                {
+                    throw new NullReferenceException();
+                }
+
+                var camera = stageObject.Stage.GetByName("Camera").Item2;
+
+                if (camera != null)
+                {
+                    view = camera.Get<CameraParameters>().View;
+                   // projection = camera.Get<CameraParameters>().Projection;
+                }
+                
                 if (animation == null)
                 {
-                    w = (float) Texture.Width / (stageObject.Stage.CellWidth / PixelsPerUnit);
-                    h = (float) Texture.Height / PixelsPerUnit;
+                    w = (float)Texture.Width / (stageObject.Stage.CellWidth / PixelsPerUnit);
+                    h = (float)Texture.Height / PixelsPerUnit;
 
-                    var hw = w / 2;
-                    var hh = h / 2;
-
-                    //Z+
-                    data.Add(new VertexPositionTexture(new Vector3(-hw, hh, 0f), new Vector2(0, 0)));
-                    data.Add(new VertexPositionTexture(new Vector3(hw, hh, 0f), new Vector2(1, 0)));
-                    data.Add(new VertexPositionTexture(new Vector3(hw, -hh, 0f), new Vector2(1, 1)));
-
-                    data.Add(new VertexPositionTexture(new Vector3(hw, -hh, 0f), new Vector2(1, 1)));
-                    data.Add(new VertexPositionTexture(new Vector3(-hw, -hh, 0f), new Vector2(0, 1)));
-                    data.Add(new VertexPositionTexture(new Vector3(-hw, hh, 0f), new Vector2(0, 0)));
-                }
-                else
-                {
-                    var animationStep = animation.Animation.CurrentStep;
-
-                    w = (float) 1;
-                    h = (float) 1;
-
-                    var hw = w / 2;
-                    var hh = h / 2;
-
-                    float minX, minY, maxX, maxY;
-
-                    minX = (float) animationStep.Section.X / Texture.Width;
-                    minY = (float) animationStep.Section.Y / Texture.Height;
-                    maxX = (float) animationStep.Section.Width / Texture.Width;
-                    maxY = (float) animationStep.Section.Height / Texture.Height;
-
-                    maxX += minX;
-                    maxY += minY;
-
-                    //Z+
-                    data.Add(new VertexPositionTexture(new Vector3(-hw, hh, 0f), new Vector2(minX, minY)));
-                    data.Add(new VertexPositionTexture(new Vector3(hw, hh, 0f), new Vector2(maxX, minY)));
-                    data.Add(new VertexPositionTexture(new Vector3(hw, -hh, 0f), new Vector2(maxX, maxY)));
-
-                    data.Add(new VertexPositionTexture(new Vector3(hw, -hh, 0f), new Vector2(maxX, maxY)));
-                    data.Add(new VertexPositionTexture(new Vector3(-hw, -hh, 0f), new Vector2(minX, maxY)));
-                    data.Add(new VertexPositionTexture(new Vector3(-hw, hh, 0f), new Vector2(minX, minY)));
+                    hw = w / 2;
+                    hh = h / 2;
                 }
             }
             else
             {
                 if (animation == null)
                 {
-                    w = (float) Texture.Width / PixelsPerUnit;
-                    h = (float) Texture.Height / PixelsPerUnit;
+                    w = (float)Texture.Width / PixelsPerUnit;
+                    h = (float)Texture.Height / PixelsPerUnit;
 
-                    var hw = w / 2;
-                    var hh = h / 2;
-
-                    //Z+
-                    data.Add(new VertexPositionTexture(new Vector3(-hw, hh, 0f), new Vector2(0, 0)));
-                    data.Add(new VertexPositionTexture(new Vector3(hw, hh, 0f), new Vector2(1, 0)));
-                    data.Add(new VertexPositionTexture(new Vector3(hw, -hh, 0f), new Vector2(1, 1)));
-
-                    data.Add(new VertexPositionTexture(new Vector3(hw, -hh, 0f), new Vector2(1, 1)));
-                    data.Add(new VertexPositionTexture(new Vector3(-hw, -hh, 0f), new Vector2(0, 1)));
-                    data.Add(new VertexPositionTexture(new Vector3(-hw, hh, 0f), new Vector2(0, 0)));
+                    hw = w / 2;
+                    hh = h / 2;
                 }
                 else
                 {
                     var animationStep = animation.Animation.CurrentStep;
+                    w = (float)animationStep.Section.Width / PixelsPerUnit;
+                    h = (float)animationStep.Section.Height / PixelsPerUnit;
 
-                    w = (float) animationStep.Section.Width / PixelsPerUnit;
-                    h = (float) animationStep.Section.Height / PixelsPerUnit;
-
-                    var hw = w / 2;
-                    var hh = h / 2;
-
-                    float minX, minY, maxX, maxY;
-
-                    minX = (float) animationStep.Section.X / Texture.Width;
-                    minY = (float) animationStep.Section.Y / Texture.Height;
-                    maxX = (float) animationStep.Section.Width / Texture.Width;
-                    maxY = (float) animationStep.Section.Height / Texture.Height;
-
-                    maxX += minX;
-                    maxY += minY;
-
-                    //Z+
-                    data.Add(new VertexPositionTexture(new Vector3(-hw, hh, 0f), new Vector2(minX, minY)));
-                    data.Add(new VertexPositionTexture(new Vector3(hw, hh, 0f), new Vector2(maxX, minY)));
-                    data.Add(new VertexPositionTexture(new Vector3(hw, -hh, 0f), new Vector2(maxX, maxY)));
-
-                    data.Add(new VertexPositionTexture(new Vector3(hw, -hh, 0f), new Vector2(maxX, maxY)));
-                    data.Add(new VertexPositionTexture(new Vector3(-hw, -hh, 0f), new Vector2(minX, maxY)));
-                    data.Add(new VertexPositionTexture(new Vector3(-hw, hh, 0f), new Vector2(minX, minY)));
+                    hw = w / 2;
+                    hh = h / 2;
                 }
             }
+
+            //Z+
+            data.Add(new VertexPositionTexture(new Vector3(-hw, hh, 0f), new Vector2(minX, minY)));
+            data.Add(new VertexPositionTexture(new Vector3(hw, hh, 0f), new Vector2(maxX, minY)));
+            data.Add(new VertexPositionTexture(new Vector3(hw, -hh, 0f), new Vector2(maxX, maxY)));
+
+            data.Add(new VertexPositionTexture(new Vector3(hw, -hh, 0f), new Vector2(maxX, maxY)));
+            data.Add(new VertexPositionTexture(new Vector3(-hw, -hh, 0f), new Vector2(minX, maxY)));
+            data.Add(new VertexPositionTexture(new Vector3(-hw, hh, 0f), new Vector2(minX, minY)));
 
             if (data.VertexCount < 3)
             {
                 return;
             }
-
-            var world = transformation.SRTMatrix;
-
-            var view = Matrix.CreateLookAt(new Vector3(0, 0, 1), new Vector3(0, 0, 0), Vector3.Up);
-            var projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(70f),
-                graphicsDevice.Viewport.AspectRatio, 0.01f, 100f);
-
+            
             Effect.Parameters["WorldViewProjection"]
                 .SetValue(world * view * projection);
             Effect.Parameters["Texture"]
