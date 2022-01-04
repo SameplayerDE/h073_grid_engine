@@ -28,7 +28,7 @@ namespace ExampleGame
 
         protected override void Initialize()
         {
-            _stage = new Stage();
+            _stage = StageLoader.Load(@"Content/stage_template.json");
             _stage.Add(new Box() {Name = "Box"});
 
             _animation = new Animation();
@@ -42,8 +42,8 @@ namespace ExampleGame
             }
 
             _stage.GetByName("Box").Item2.Attach(new AnimationController(_animation));
-           
-            
+
+
             base.Initialize();
         }
 
@@ -53,8 +53,11 @@ namespace ExampleGame
             _texture = Content.Load<Texture2D>("alisa");
 
             _stage.GetByName("Box").Item2.Get<TextureRenderer>().Texture2D = _texture;
-            _stage.GetByName("Box").Item2.Get<SpriteRenderer>().Texture = _texture;
-            _stage.GetByName("Box").Item2.Get<SpriteRenderer>().Effect = Content.Load<Effect>("default");
+            if (_stage.GetByName("Box").Item2.Get<SpriteRenderer>() != null)
+            {
+                _stage.GetByName("Box").Item2.Get<SpriteRenderer>().Texture = _texture;
+                _stage.GetByName("Box").Item2.Get<SpriteRenderer>().Effect = Content.Load<Effect>("default");
+            }
         }
 
         protected override void Update(GameTime gameTime)
@@ -68,9 +71,9 @@ namespace ExampleGame
             GraphicsDevice.Clear(Color.Black);
 
             SpriteBatch.Begin();
-            
+
             _stage.Get<StageRenderer>().Draw(GraphicsDevice, SpriteBatch, gameTime);
-            
+
             SpriteBatch.DrawLine(Vector2.Zero, Mouse.GetState().Position.ToVector2(), Color.White);
             SpriteBatch.DrawRectangle(new Rectangle(0, 0, Mouse.GetState().X, Mouse.GetState().Y), Color.White);
 
