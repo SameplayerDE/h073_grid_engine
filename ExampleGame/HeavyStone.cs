@@ -3,12 +3,11 @@ using grid_engine_lib.Framework.Components;
 
 namespace ExampleGame
 {
-    public class Barrel : StageObject
+    public class HeavyStone : StageObject
     {
-        public Barrel()
+        public HeavyStone()
         {
             Attach(new TextureRenderer());
-            Attach(new Dynamics());
         }
     }
 }

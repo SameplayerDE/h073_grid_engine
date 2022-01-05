@@ -15,6 +15,7 @@ namespace grid_engine_lib.Framework
         
         public int Width;
         public int Height;
+        public int Depth = 1;
         
         public int CellWidth = 64;
         public int CellHeight = 64;
@@ -66,6 +67,11 @@ namespace grid_engine_lib.Framework
 
         public (bool, Object) Get(int x, int y, int z = 0)
         {
+            if (x < 0 || x >= Width || y < 0 || y >= Height || z < 0 || z >= Depth)
+            {
+                return (true, null);
+            }
+            
             foreach (var o in Objects)
             {
                 foreach (var component in o.Components)
