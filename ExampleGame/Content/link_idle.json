@@ -1,0 +1,35 @@
+{
+    "animation": {
+        "step_count": 3,
+        "texture_path": "texture.png",
+        "steps": [
+            {
+                "section": {
+                    "x": 15,
+                    "y": 14,
+                    "width": 18,
+                    "height": 25
+                },
+                "duration": 100
+            },
+            {
+                "section": {
+                    "x": 15,
+                    "y": 54,
+                    "width": 18,
+                    "height": 25
+                },
+                "duration": 100
+            },
+            {
+                "section": {
+                    "x": 47,
+                    "y": 54,
+                    "width": 18,
+                    "height": 25
+                },
+                "duration": 100
+            }
+        ]
+    }
+}

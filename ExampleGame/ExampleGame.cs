@@ -35,6 +35,7 @@ namespace ExampleGame
             _stage.Add(new HeavyStone() { Name = "HeavyStone", Position = new Vector3(4, 1, 0)});
             
             _stage.GetByName("Alisa").Item2.Attach(new AnimationController(AnimationLoader.Load("Content/animation_template.json")));
+            _stage.GetByName("Barrel").Item2.Attach(new AnimationController(AnimationLoader.Load("Content/link_idle.json")));
             
             base.Initialize();
         }
@@ -51,7 +52,7 @@ namespace ExampleGame
             
             if (_stage.GetByName("Barrel").Item2.Get<TextureRenderer>() != null)
             {
-                _stage.GetByName("Barrel").Item2.Get<TextureRenderer>().Texture2D = Content.Load<Texture2D>("barrel");
+                _stage.GetByName("Barrel").Item2.Get<TextureRenderer>().Texture2D = Content.Load<Texture2D>("link");
             }
             if (_stage.GetByName("HeavyStone").Item2.Get<TextureRenderer>() != null)
             {
