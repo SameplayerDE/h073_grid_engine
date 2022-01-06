@@ -53,16 +53,18 @@ namespace grid_engine_lib.Framework
         //    _removeQueue.Enqueue(@object);
         //}
         
-        public (bool, Object) GetByName(string name)
+        public ObjectResult GetByName(string name)
         {
-            foreach (var o in Objects)
+            for (var index = Objects.Count - 1; index >= 0; index--)
             {
+                var o = Objects[index];
                 if (o.Name == name)
                 {
-                    return (true, o);
+                    return new ObjectResult(this, o, true);
                 }
             }
-            return (false, null);
+
+            return new ObjectResult(this, null, false);
         }
 
         public ObjectResult Get(int x, int y, int z = 0)
@@ -71,19 +73,22 @@ namespace grid_engine_lib.Framework
             {
                 return new ObjectResult(this, null, true);
             }
-            
-            foreach (var o in Objects)
+
+            for (var index = Objects.Count - 1; index >= 0; index--)
             {
-                foreach (var component in o.Components)
+                var o = Objects[index];
+                
+                var transformation = o.Get<Transformation>();
+                if (transformation == null) continue;
+                if (transformation.Position == new Vector3(x, y, z))
                 {
-                    var transformation = o.Get<Transformation>();
-                    if (transformation == null) continue;
-                    if (transformation.Position == new Vector3(x, y, z))
-                    {
-                        return new ObjectResult(this, o, true);
-                    }
+                    return new ObjectResult(this, o, true);
                 }
                 
+                /*foreach (var component in o.Components)
+                {
+                    
+                }*/
             }
 
             return new ObjectResult(this, null, false);

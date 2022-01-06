@@ -1,8 +1,13 @@
 {
+    "default": "idle",
     "animations": [
         {
             "name": "idle",
             "path": "link_idle.json"
+        },
+        {
+            "name": "walk",
+            "path": "link_walk.json"
         }
     ]
 }

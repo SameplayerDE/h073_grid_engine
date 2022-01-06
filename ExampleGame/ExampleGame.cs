@@ -19,6 +19,8 @@ namespace ExampleGame
         private Texture2D _texture;
         private float _scale = 12f;
 
+        public Camera2D Camera2D;
+
         public ExampleGame()
         {
             Content.RootDirectory = "Content";
@@ -34,8 +36,19 @@ namespace ExampleGame
             _stage.Add(new Barrel() { Name = "Barrel", Position = new Vector3(2, 1, 0)});
             _stage.Add(new HeavyStone() { Name = "HeavyStone", Position = new Vector3(4, 1, 0)});
             
-            _stage.GetByName("Alisa").Item2.Attach(new AnimationController(AnimationLoader.Load("Content/animation_template.json")));
-            _stage.GetByName("Barrel").Item2.Attach(new AnimationController(AnimationLoader.Load("Content/link_idle.json")));
+            _stage.GetByName("Alisa").Object.Attach(new AnimationController(AnimationLoader.Load("Content/animation_template.json")));
+            //_stage.GetByName("Barrel").Object.Attach(new AnimationController(AnimationLoader.Load("Content/link_idle.json")));
+            _stage.GetByName("Barrel").Object.Attach(new AnimationController(AnimationCollectionLoader.Load("Content/link_animation.json"))
+            {
+                AnimationName = "idle"
+            });
+
+            Camera2D = new Camera2D(GraphicsDevice)
+            {
+                Smoothness = 1f,
+                Scale = 6f
+            };
+            Camera2D.Target = (StageObject) _stage.GetByName("Barrel").Object;
             
             base.Initialize();
         }
@@ -45,19 +58,19 @@ namespace ExampleGame
             base.LoadContent();
             _texture = Content.Load<Texture2D>("alisa");
 
-            if (_stage.GetByName("Alisa").Item2.Get<TextureRenderer>() != null)
+            if (_stage.GetByName("Alisa").Object.Has<TextureRenderer>())
             {
-                _stage.GetByName("Alisa").Item2.Get<TextureRenderer>().Texture2D = _texture;
+                _stage.GetByName("Alisa").Object.Get<TextureRenderer>().Texture2D = _texture;
             }
             
-            if (_stage.GetByName("Barrel").Item2.Get<TextureRenderer>() != null)
+            if (_stage.GetByName("Barrel").Object.Has<TextureRenderer>())
             {
-                _stage.GetByName("Barrel").Item2.Get<TextureRenderer>().Texture2D = Content.Load<Texture2D>("link");
+                _stage.GetByName("Barrel").Object.Get<TextureRenderer>().Texture2D = Content.Load<Texture2D>("link");
             }
             
-            if (_stage.GetByName("HeavyStone").Item2.Get<TextureRenderer>() != null)
+            if (_stage.GetByName("HeavyStone").Object.Has<TextureRenderer>())
             {
-                _stage.GetByName("HeavyStone").Item2.Get<TextureRenderer>().Texture2D = Content.Load<Texture2D>("heavystone");
+                _stage.GetByName("HeavyStone").Object.Get<TextureRenderer>().Texture2D = Content.Load<Texture2D>("heavystone");
             }
         }
 
@@ -65,13 +78,14 @@ namespace ExampleGame
         {
             base.Update(gameTime);
             _stage.Update(gameTime);
+            Camera2D.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
 
-            SpriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: Matrix.CreateScale(_scale) * Matrix.CreateTranslation(new Vector3(GraphicsDevice.Viewport.Bounds.Size.ToVector2() / 2, 0)) * Matrix.CreateTranslation(-_stage.GetByName("Alisa").Item2.Get<Transformation>().Position * _stage.Cell * _scale));
+            SpriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: Camera2D.TransformationMatrix);
 
             _stage.Get<StageRenderer>().Draw(GraphicsDevice, SpriteBatch, gameTime);
 

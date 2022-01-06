@@ -8,7 +8,7 @@ namespace ExampleGame
         public Barrel()
         {
             Attach(new TextureRenderer());
-            Attach(new Dynamics());
+            Attach(new Controller());
         }
     }
 }

@@ -22,19 +22,19 @@ namespace ExampleGame
             {
                 int x = 0;
                 int y = 0;
-                if (Input.IsKeyDownOnce(Keys.D))
+                if (Input.IsKeyDown(Keys.D))
                 {
                     x += 1;
                 }
-                if (Input.IsKeyDownOnce(Keys.S))
+                if (Input.IsKeyDown(Keys.S))
                 {
                     y += 1;
                 }
-                if (Input.IsKeyDownOnce(Keys.A))
+                if (Input.IsKeyDown(Keys.A))
                 {
                     x -= 1;
                 }
-                if (Input.IsKeyDownOnce(Keys.W))
+                if (Input.IsKeyDown(Keys.W))
                 {
                     y -= 1;
                 }
@@ -64,6 +64,15 @@ namespace ExampleGame
                     }
                 }*/
 
+                if (x != 0 || y != 0)
+                {
+                    Object.Get<AnimationController>().AnimationName = "walk";
+                }
+                else
+                {
+                    Object.Get<AnimationController>().AnimationName = "idle";
+                }
+                
                 var result = stageObject.Move(x, y);
 
                 if (!result.Success)

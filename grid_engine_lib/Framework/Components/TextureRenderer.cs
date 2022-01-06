@@ -33,7 +33,10 @@ namespace grid_engine_lib.Framework.Components
                 
                 if (animation != null)
                 {
-
+                    if (animation.Animation == null)
+                    {
+                        return;
+                    }
                     var animationStep = animation.Animation.CurrentStep;
                     var section = animationStep.Section;
 

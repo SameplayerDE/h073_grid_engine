@@ -19,5 +19,10 @@ namespace grid_engine_lib
             return _prev.IsKeyUp(key) && _curr.IsKeyDown(key);
         }
         
+        public static bool IsKeyDown(Keys key)
+        {
+            return _curr.IsKeyDown(key);
+        }
+        
     }
 }

@@ -84,7 +84,7 @@ namespace ExampleGame
                     throw new NullReferenceException();
                 }
 
-                var camera = stageObject.Stage.GetByName("Camera").Item2;
+                var camera = stageObject.Stage.GetByName("Camera").Object;
 
                 if (camera != null)
                 {

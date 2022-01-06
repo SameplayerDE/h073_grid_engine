@@ -1,6 +1,6 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using System.Linq;
 
 namespace grid_engine_lib.Framework
@@ -18,6 +18,16 @@ namespace grid_engine_lib.Framework
 
         public bool Attach(EngineComponent component)
         {
+            component.Object = this;
+            return Components.Add(component);
+        }
+        
+        public bool Attach<T>(T component) where T : EngineComponent
+        {
+            if (Has<T>())
+            {
+                Detach<T>();
+            }
             component.Object = this;
             return Components.Add(component);
         }
@@ -51,6 +61,11 @@ namespace grid_engine_lib.Framework
         public void Detach(EngineComponent component)
         {
             Components.Remove(component);
+        }
+        
+        public void Detach<T>() where T : EngineComponent
+        {
+            Components.Remove(Get<T>());
         }
     }
 }
