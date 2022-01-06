@@ -26,26 +26,36 @@ namespace grid_engine_lib.Framework
             Attach(Transformation.Default);
         }
 
-        public (bool, Object) Move(int x, int y, int z = 0)
+        public ObjectResult Move(int x, int y, int z = 0)
         {
-            var (success, result) = Stage.Get(Position.X + x, Position.Y + y);
+            /*var (success, result) = Stage.Get(Position.X + x, Position.Y + y);
             if (success) return (false, result);
             Transformation.Translate(x, y, z);
-            return (true, null);
+            return (true, null);*/
+
+            var result = Stage.Get(Position.X + x, Position.Y + y, Position.Z + z);
+            if (result.Success) return new ObjectResult(Stage, result.Object, false);
+            Transformation.Translate(x, y, z);
+            return new ObjectResult(Stage, null, true);
         }
         
-        public (bool, Object) Move(Vector3 vector3)
+        public ObjectResult Move(Vector3 vector3)
         {
             var (x, y, z) = vector3;
             return Move((int)x, (int)y, (int)z);
         }
 
-        public (bool, Object) Teleport(int x, int y)
+        public ObjectResult Teleport(int x, int y, int z = 0)
         {
-            var (success, result) = Stage.Get(x, y);
+            /*var (success, result) = Stage.Get(x, y);
             if (success) return (false, result);
             Transformation.Teleport(x, y);
-            return (true, null);
+            return (true, null);*/
+            
+            var result = Stage.Get(x, y, z);
+            if (result.Success) return new ObjectResult(Stage, result.Object, false);
+            Transformation.Teleport(x, y, z);
+            return new ObjectResult(Stage, null, true);
         }
 
         public virtual void Update(GameTime gameTime)

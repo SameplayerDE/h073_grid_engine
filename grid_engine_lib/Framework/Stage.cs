@@ -65,11 +65,11 @@ namespace grid_engine_lib.Framework
             return (false, null);
         }
 
-        public (bool, Object) Get(int x, int y, int z = 0)
+        public ObjectResult Get(int x, int y, int z = 0)
         {
             if (x < 0 || x >= Width || y < 0 || y >= Height || z < 0 || z >= Depth)
             {
-                return (true, null);
+                return new ObjectResult(this, null, true);
             }
             
             foreach (var o in Objects)
@@ -80,13 +80,13 @@ namespace grid_engine_lib.Framework
                     if (transformation == null) continue;
                     if (transformation.Position == new Vector3(x, y, z))
                     {
-                        return (true, o);
+                        return new ObjectResult(this, o, true);
                     }
                 }
                 
             }
 
-            return (false, null);
+            return new ObjectResult(this, null, false);
         }
 
         public void Update(GameTime gameTime)
@@ -135,7 +135,7 @@ namespace grid_engine_lib.Framework
             }
         }
 */
-        public (bool, Object) Get(float x, float y, float z = 0)
+        public ObjectResult Get(float x, float y, float z = 0)
         {
             return Get((int)x, (int)y, (int)z);
         }

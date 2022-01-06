@@ -39,7 +39,7 @@ namespace ExampleGame
                     y -= 1;
                 }
                 
-                var (success, @object) = stageObject.Move(x, y);
+                /*var (success, @object) = stageObject.Move(x, y);
 
                 if (!success)
                 {
@@ -56,6 +56,31 @@ namespace ExampleGame
                                 (success, @object) = sObject.Move(x, y);
 
                                 if (success)
+                                {
+                                    stageObject.Move(x, y);
+                                }
+                            }
+                        }
+                    }
+                }*/
+
+                var result = stageObject.Move(x, y);
+
+                if (!result.Success)
+                {
+                    if (result.Object == null)
+                    {
+                        //STAGEBORDER
+                    }
+                    else
+                    {
+                        if (result.Object.Get<Dynamics>() != null)
+                        {
+                            if (result.Object is StageObject sObject)
+                            {
+                                result = sObject.Move(x, y);
+
+                                if (result.Success)
                                 {
                                     stageObject.Move(x, y);
                                 }

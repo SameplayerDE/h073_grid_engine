@@ -54,6 +54,7 @@ namespace ExampleGame
             {
                 _stage.GetByName("Barrel").Item2.Get<TextureRenderer>().Texture2D = Content.Load<Texture2D>("link");
             }
+            
             if (_stage.GetByName("HeavyStone").Item2.Get<TextureRenderer>() != null)
             {
                 _stage.GetByName("HeavyStone").Item2.Get<TextureRenderer>().Texture2D = Content.Load<Texture2D>("heavystone");
