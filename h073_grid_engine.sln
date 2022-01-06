@@ -6,6 +6,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleGame", "ExampleGame\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grid_engine_lib", "grid_engine_lib\grid_engine_lib.csproj", "{707C02C4-6CAC-431D-8D24-0C439D85FE03}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grid_framework_lib", "grid_framework_lib\grid_framework_lib.csproj", "{5DACD759-0651-4575-B376-E3D2311DAEAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grid_engine_light_lib", "grid_engine_light_lib\grid_engine_light_lib.csproj", "{990BD10E-0505-44FC-A685-366434EECD0D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{707C02C4-6CAC-431D-8D24-0C439D85FE03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{707C02C4-6CAC-431D-8D24-0C439D85FE03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{707C02C4-6CAC-431D-8D24-0C439D85FE03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DACD759-0651-4575-B376-E3D2311DAEAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DACD759-0651-4575-B376-E3D2311DAEAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DACD759-0651-4575-B376-E3D2311DAEAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DACD759-0651-4575-B376-E3D2311DAEAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{990BD10E-0505-44FC-A685-366434EECD0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{990BD10E-0505-44FC-A685-366434EECD0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{990BD10E-0505-44FC-A685-366434EECD0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{990BD10E-0505-44FC-A685-366434EECD0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
